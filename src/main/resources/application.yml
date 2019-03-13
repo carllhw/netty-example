@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: netty-example
+logging:
+  level:
+    com.carllhw.example.netty: debug
