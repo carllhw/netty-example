@@ -4,3 +4,4 @@ spring:
 logging:
   level:
     com.carllhw.example.netty: debug
+    io.netty: debug
