@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.carllhw.example.netty.Example;
 import com.carllhw.example.netty.ExampleHelp;
+import com.carllhw.example.netty.discard.DiscardClient;
 import com.carllhw.example.netty.discard.DiscardServer;
 import com.carllhw.example.netty.enums.ExampleType;
 import com.carllhw.example.netty.enums.OptionName;
@@ -42,6 +43,7 @@ public class ExampleRunner implements ApplicationRunner {
                 example = new DiscardServer();
                 break;
             case DISCARD_CLIENT:
+                example = new DiscardClient();
                 break;
             default:
                 break;

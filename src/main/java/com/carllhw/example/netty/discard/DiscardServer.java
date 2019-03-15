@@ -1,7 +1,10 @@
 package com.carllhw.example.netty.discard;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -23,8 +26,8 @@ import com.carllhw.example.netty.Example;
 @Slf4j
 public class DiscardServer implements Example {
 
-    private final boolean SSL = System.getProperty("ssl") != null;
-    private final int PORT = Integer.parseInt(System.getProperty("port", "8009"));
+    private static final boolean SSL = System.getProperty("ssl") != null;
+    private static final int PORT = Integer.parseInt(System.getProperty("port", "8009"));
 
     @Override
     public void run(ApplicationArguments args) {
@@ -40,6 +43,7 @@ public class DiscardServer implements Example {
         } else {
             sslCtx = null;
         }
+
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {

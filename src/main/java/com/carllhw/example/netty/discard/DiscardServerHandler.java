@@ -20,7 +20,7 @@ public class DiscardServerHandler extends SimpleChannelInboundHandler<Object> {
         while (in.isReadable()) {
             builder.append((char) in.readByte());
         }
-        log.info(builder.toString());
+        log.info("channel read: {}", builder.toString());
     }
 
     @Override

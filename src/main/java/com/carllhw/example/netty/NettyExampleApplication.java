@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
+ * Netty example application
+ *
  * @author carllhw
  */
 @SpringBootApplication
