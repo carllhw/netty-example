@@ -8,14 +8,15 @@ package com.carllhw.example.netty.enums;
 public enum ExampleType {
 
     /**
-     * DISCARD_CLIENT
+     * example type
      */
     DISCARD_CLIENT("discard-client"),
 
-    /**
-     * DISCARD_SERVER
-     */
-    DISCARD_SERVER("discard-server");
+    DISCARD_SERVER("discard-server"),
+
+    ECHO_SERVER("echo-server"),
+
+    ECHO_CLIENT("echo-client");
 
     private final String code;
 

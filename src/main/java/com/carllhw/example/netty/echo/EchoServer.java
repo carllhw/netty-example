@@ -1,10 +1,7 @@
-package com.carllhw.example.netty.discard;
+package com.carllhw.example.netty.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -19,15 +16,15 @@ import org.springframework.boot.ApplicationArguments;
 import com.carllhw.example.netty.Example;
 
 /**
- * Discards server
+ * Echoes back any received data from a client.
  *
  * @author carllhw
  */
 @Slf4j
-public class DiscardServer implements Example {
+public class EchoServer implements Example {
 
     private static final boolean SSL = System.getProperty("ssl") != null;
-    private static final int PORT = Integer.parseInt(System.getProperty("port", "8009"));
+    private static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
 
     @Override
     public void run(ApplicationArguments args) {
@@ -50,6 +47,7 @@ public class DiscardServer implements Example {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
+                    .option(ChannelOption.SO_BACKLOG, 100)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
@@ -58,7 +56,7 @@ public class DiscardServer implements Example {
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
-                            p.addLast(new DiscardServerHandler());
+                            p.addLast(new EchoServerHandler());
                         }
                     });
             ChannelFuture f = b.bind(PORT).sync();

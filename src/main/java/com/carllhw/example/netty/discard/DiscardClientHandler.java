@@ -7,7 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Handle client-side channel
+ * Discard client handler
  *
  * @author carllhw
  */

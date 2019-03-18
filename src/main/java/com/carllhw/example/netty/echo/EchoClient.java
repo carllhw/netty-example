@@ -1,12 +1,9 @@
-package com.carllhw.example.netty.discard;
+package com.carllhw.example.netty.echo;
 
 import javax.net.ssl.SSLException;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -19,16 +16,16 @@ import org.springframework.boot.ApplicationArguments;
 import com.carllhw.example.netty.Example;
 
 /**
- * Discard client
+ * Echo client
  *
  * @author carllhw
  */
 @Slf4j
-public class DiscardClient implements Example {
+public class EchoClient implements Example {
 
     private static final boolean SSL = System.getProperty("ssl") != null;
     private static final String HOST = System.getProperty("host", "127.0.0.1");
-    private static final int PORT = Integer.parseInt(System.getProperty("port", "8009"));
+    private static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
     static final int SIZE = Integer.parseInt(System.getProperty("size", "256"));
 
     @Override
@@ -50,6 +47,7 @@ public class DiscardClient implements Example {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
@@ -57,7 +55,7 @@ public class DiscardClient implements Example {
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
                             }
-                            p.addLast(new DiscardClientHandler());
+                            p.addLast(new EchoClientHandler());
                         }
                     });
             ChannelFuture f = b.connect(HOST, PORT).sync();

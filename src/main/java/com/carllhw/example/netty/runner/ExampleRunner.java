@@ -10,6 +10,8 @@ import com.carllhw.example.netty.Example;
 import com.carllhw.example.netty.ExampleHelp;
 import com.carllhw.example.netty.discard.DiscardClient;
 import com.carllhw.example.netty.discard.DiscardServer;
+import com.carllhw.example.netty.echo.EchoClient;
+import com.carllhw.example.netty.echo.EchoServer;
 import com.carllhw.example.netty.enums.ExampleType;
 import com.carllhw.example.netty.enums.OptionName;
 
@@ -44,6 +46,12 @@ public class ExampleRunner implements ApplicationRunner {
                 break;
             case DISCARD_CLIENT:
                 example = new DiscardClient();
+                break;
+            case ECHO_SERVER:
+                example = new EchoServer();
+                break;
+            case ECHO_CLIENT:
+                example = new EchoClient();
                 break;
             default:
                 break;
